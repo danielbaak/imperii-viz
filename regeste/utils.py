@@ -35,8 +35,10 @@ def parse_xml(xml_file_path):
         issue_date = root.find(".//date").get("value")
         abstract = root.find(".//abstract").text
         analysis = root.find(".//diplomaticAnalysis")
+
         if abstract is not None:
-            abstract = abstract.text
+
+            abstract = get_xml_child_content(analysis)
         if analysis is not None:
             analysis = analysis.text
         addenda = root.find(".//addenda")
@@ -87,5 +89,9 @@ def parse_xml(xml_file_path):
         pass
     except AttributeError:
         pass
+
+def get_xml_child_content(node):
+    
+
 def date_to_posix_timestamp(string):
     return int(time.mktime(datetime.datetime.strptime(string, "%Y-%m-%d").timetuple()))
