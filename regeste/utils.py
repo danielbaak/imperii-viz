@@ -37,13 +37,13 @@ def parse_xml(xml_file_path):
         analysis = root.find(".//diplomaticAnalysis")
         if abstract is not None:
             abstract = get_xml_child_content(abstract)
-            print(abstract)
+
         if analysis is not None:
-            #analysis = get_xml_child_content(analysis)
-            analysis = analysis.text
+            analysis = get_xml_child_content(analysis)
+
         addenda = root.find(".//addenda")
         if addenda is not None:
-            addenda = addenda.text
+            addenda = get_xml_child_content(addenda)
         uri = root.find(".//idno[@n='uri']").text
         exchange = root.find(".//idno[@n='exchange']").text
 
@@ -98,7 +98,6 @@ def get_xml_child_content(node):
         out = ""
         for child in list(node):
             out += get_xml_child_content(child)
-        print(out)
     return out
 
 def date_to_posix_timestamp(string):
