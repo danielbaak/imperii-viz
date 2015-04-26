@@ -9,8 +9,6 @@ class Person(models.Model):
     birth_date = models.DateField()
     death_date = models.DateField()
     gnd_number = models.IntegerField()
-    #Foreign key in regeste
-    #regesten = models.OneToManyField('Regeste')
 
     def __unicode__(self):
         return '%d: %s' % (self.pk, self.name)
