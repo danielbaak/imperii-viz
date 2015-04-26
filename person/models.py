@@ -18,8 +18,11 @@ class Person(models.Model):
         #print(wikipedia.search(self.name))
         #[u'Ford Motor Company', u'Gerald Ford', u'Henry Ford']
         for entry in wikipedia.search(self.name, results=4):
-            for regest in self.regesten:
-                print(regest.issue_date)
-            #wait for dates
+            print(entry)
+            #for regest in self.regesten:
+            #    print(regest.issue_date)
 
 
+    def calculateMedian(self):
+        count = self.regesten.count()
+        return self.regesten.values_list().order_by('issue_date')[int(round(count/2))]
