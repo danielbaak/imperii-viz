@@ -14,3 +14,6 @@ from django.db import models
 # Orte
 # Portrais
 #
+
+class Regeste(models.Model):
+    title = models.CharField(max_length=150)
