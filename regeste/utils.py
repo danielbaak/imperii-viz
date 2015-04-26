@@ -91,7 +91,7 @@ def parse_xml(xml_file_path):
         pass
 
 def get_xml_child_content(node):
-    
+    pass
 
 def date_to_posix_timestamp(string):
     return int(time.mktime(datetime.datetime.strptime(string, "%Y-%m-%d").timetuple()))

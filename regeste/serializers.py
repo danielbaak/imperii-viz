@@ -14,5 +14,5 @@ class RegesteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Regeste
-        fields = ('title', 'place_of_issue', 'issuer','issue_date','abstract','analysis','addenda')
+        fields = ('title', 'place_of_issue','issuer','issue_date','abstract','analysis','addenda')
 
