@@ -1,5 +1,6 @@
 from django.db import models
-
+from regeste.models import Regeste
+import wikipedia
 # Create your models here.
 
 class Person(models.Model):
@@ -12,3 +13,11 @@ class Person(models.Model):
 
     def __str__(self):
         return '%d: %s' % (self.pk, self.name)
+
+    def addWikiDataToPerson(self):
+        #print(wikipedia.search(self.name))
+        #[u'Ford Motor Company', u'Gerald Ford', u'Henry Ford']
+        for entry in wikipedia.search(self.name, results=4):
+            for regest in self.regesten:
+                print(regest.issue_date)
+            #wait for dates

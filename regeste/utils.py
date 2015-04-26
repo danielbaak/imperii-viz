@@ -12,7 +12,7 @@ def parse_folder(path):
         for file in files:
             parse_xml(os.path.join(root, file))
 
-
+#ElementTree
 def parse_xml(xml_file_path):
     try:
         loc = None

@@ -9,6 +9,8 @@ class RegesteSerializer(serializers.ModelSerializer):
     #many - If applied to a to-many relationship, you should set this argument to True.
     #only one issuer
     issuer = serializers.StringRelatedField()
+
+
     #http://www.django-rest-framework.org/api-guide/relations/#nested-relationships
     place_of_issue = LocationSerializer(many=False)
 
