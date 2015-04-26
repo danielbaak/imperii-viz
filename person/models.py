@@ -5,12 +5,10 @@ from django.db import models
 class Person(models.Model):
     name = models.CharField(max_length=200)
     #e.g from wikipedia
-    short_description = models.TextField()
+    short_description = models.TextField(null=True)
     birth_date = models.DateField(null=True)
     death_date = models.DateField(null=True)
     gnd_number = models.IntegerField(null=True)
-    #Foreign key in regeste
-    #regesten = models.OneToManyField('Regeste')
 
     def __unicode__(self):
         return '%d: %s' % (self.pk, self.name)
