@@ -33,13 +33,13 @@ def parse_xml(xml_file_path):
                 loc = Location.objects.filter(latitude=lat, longitude=long[1:])[0]
         issuer = root.find(".//persName").text
         issue_date = root.find(".//date").get("value")
-        abstract = root.find(".//abstract").text
+        abstract = root.find(".//abstract")
         analysis = root.find(".//diplomaticAnalysis")
-
         if abstract is not None:
-
-            abstract = get_xml_child_content(analysis)
+            abstract = get_xml_child_content(abstract)
+            print(abstract)
         if analysis is not None:
+            #analysis = get_xml_child_content(analysis)
             analysis = analysis.text
         addenda = root.find(".//addenda")
         if addenda is not None:
@@ -52,13 +52,11 @@ def parse_xml(xml_file_path):
             dep.save()
         else:
             dep = Department.objects.get(department_id=department)
-        print(dep)
         if len(Volume.objects.filter(volume_id=volume, department=dep)) == 0:
             vol = Volume(volume_id=volume, department=dep)
             vol.save()
         else:
             vol = Volume.objects.filter(volume_id=volume, department=dep)[0]
-        print(vol)
         if len(Issue.objects.filter(issue_id=issue, volume=vol)) == 0:
             iss = Issue(issue_id=issue, volume=vol)
             iss.save()
@@ -91,7 +89,17 @@ def parse_xml(xml_file_path):
         pass
 
 def get_xml_child_content(node):
-    pass
+    if len(list(node)) == 0:
+        if node.text is not None:
+            return node.text
+        else:
+            return ""
+    else:
+        out = ""
+        for child in list(node):
+            out += get_xml_child_content(child)
+        print(out)
+    return out
 
 def date_to_posix_timestamp(string):
     return int(time.mktime(datetime.datetime.strptime(string, "%Y-%m-%d").timetuple()))
