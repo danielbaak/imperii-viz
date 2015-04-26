@@ -13,9 +13,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Person',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
                 ('name', models.CharField(max_length=200)),
-                ('short_description', models.TextField()),
+                ('short_description', models.TextField(null=True)),
                 ('birth_date', models.DateField(null=True)),
                 ('death_date', models.DateField(null=True)),
                 ('gnd_number', models.IntegerField(null=True)),

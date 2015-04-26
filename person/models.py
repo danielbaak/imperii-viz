@@ -10,7 +10,5 @@ class Person(models.Model):
     death_date = models.DateField(null=True)
     gnd_number = models.IntegerField(null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return '%d: %s' % (self.pk, self.name)
-
-
