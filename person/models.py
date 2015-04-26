@@ -11,3 +11,8 @@ class Person(models.Model):
     gnd_number = models.IntegerField(null=True)
     #Foreign key in regeste
     #regesten = models.OneToManyField('Regeste')
+
+    def __unicode__(self):
+        return '%d: %s' % (self.pk, self.name)
+
+
