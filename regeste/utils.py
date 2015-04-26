@@ -22,7 +22,7 @@ def parse_xml(xml_file_path):
         issue = root.find(".//idno[@n='issue']").text
         volume = root.find(".//idno[@n='volume']").text
         department = root.find(".//idno[@n='department']").text
-        place_of_issue = root.find(".//idno[@n='volume']").text
+        place_of_issue = root.find(".//placeName").text
         location = root.find(".//geo")
         if location is not None:
             location = location.text
@@ -33,11 +33,17 @@ def parse_xml(xml_file_path):
                 loc = Location.objects.filter(latitude=lat, longitude=long[1:])[0]
         issuer = root.find(".//persName").text
         issue_date = root.find(".//date").get("value")
-        abstract = root.find(".//abstract")
+        abstract = root.find(".//abstract").text
         analysis = root.find(".//diplomaticAnalysis")
+        if abstract is not None:
+            abstract = abstract.text
+        if analysis is not None:
+            analysis = analysis.text
         addenda = root.find(".//addenda")
-        uri = root.find(".//idno[@n='uri']")
-        exchange = root.find(".//idno[@n='exchange']")
+        if addenda is not None:
+            addenda = addenda.text
+        uri = root.find(".//idno[@n='uri']").text
+        exchange = root.find(".//idno[@n='exchange']").text
 
         if len(Department.objects.filter(department_id=department)) == 0:
             dep = Department(department_id=department)
@@ -77,7 +83,9 @@ def parse_xml(xml_file_path):
                 analysis=analysis,
                 addenda=addenda,
                 uni_mainz=mainz).save()
-    except ET.ParseError or AttributeError:
+    except ET.ParseError:
+        pass
+    except AttributeError:
         pass
 def date_to_posix_timestamp(string):
     return int(time.mktime(datetime.datetime.strptime(string, "%Y-%m-%d").timetuple()))
