@@ -1,0 +1,50 @@
+from django.db import models
+
+# Create your models here.
+# Personen
+# -Name
+# -short_description
+# -birth_date
+# -death_date
+# Regeste
+# -Person
+# -Inhalt
+# -Datum
+# -Ort
+# Orte
+# Portrais
+#
+
+
+class Department(models.Model):
+    name = models.CharField(max_length=200)
+    department_id = models.IntegerField(unique=True)
+
+
+class Volume(models.Model):
+    volume_id = models.IntegerField(unique=True)
+    editor = models.CharField(max_length=200)
+    department = models.ForeignKey(Department)
+
+
+class Issue(models.Model):
+    issue_id = models.IntegerField(unique=True)
+    band = models.ForeignKey(Volume)
+
+
+class Regeste(models.Model):
+    title = models.CharField(max_length=150)
+    issue = models.ForeignKey(Issue)
+    place_of_issue = models.ForeignKey("Location")
+    issuer = models.ForeignKey("Person")
+    issue_date = models
+    abstract = models.TextField()
+    analysis = models.TextField() #Kommentare
+    addenda = models.TextField() #Nachtragungen
+    uni_mainz = models.ForeignKey("RegesteUniMainz")
+
+
+class RegesteUniMainz:
+    uri = models.CharField(max_length=100)
+    exchange = models.CharField(max_length=200)
+
