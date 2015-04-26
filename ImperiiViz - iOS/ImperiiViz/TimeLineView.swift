@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TimeLineViewDelegate {
-    func yearChanged(year: Float)
+    func yearChanged(year: Float, position:CGPoint)
 }
 
 
@@ -55,9 +55,11 @@ class TimeLineView: UIView {
         let touch = touches.first as! UITouch
         let tapCount = touch.tapCount
         
-        var slectedYear = CGFloat(from.year) + (CGFloat(touch.locationInView(self).x) / self.frame.width) * CGFloat(to.year - from.year)
+        var point = touch.locationInView(self)
         
-        delegate?.yearChanged(Float(slectedYear))
+        var slectedYear = CGFloat(from.year) + (point.x / self.frame.width) * CGFloat(to.year - from.year)
+        
+        delegate?.yearChanged(Float(slectedYear), position: point)
     }
     
     

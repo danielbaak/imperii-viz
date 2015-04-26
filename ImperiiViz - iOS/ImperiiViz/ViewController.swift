@@ -61,9 +61,11 @@ class ViewController: UIViewController,UITextFieldDelegate,TimeLineViewDelegate 
     }
     
     
-    func yearChanged(year: Float) {
+    func yearChanged(year: Float, position: CGPoint) {
+        dateIndicator?.frame=CGRectMake(position.x, dateIndicator!.frame.origin.y, dateIndicator!.frame.width, dateIndicator!.frame.height)
         dateIndicator?.setYear(year)
     }
+    
         
     
 
