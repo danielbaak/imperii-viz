@@ -5,10 +5,10 @@ from django.db import models
 class Person(models.Model):
     name = models.CharField(max_length=200)
     #e.g from wikipedia
-    short_description = models.TextField()
-    birth_date = models.DateField()
-    death_date = models.DateField()
-    gnd_number = models.IntegerField()
+    short_description = models.TextField(null=True)
+    birth_date = models.DateField(null=True)
+    death_date = models.DateField(null=True)
+    gnd_number = models.IntegerField(null=True)
 
     def __unicode__(self):
         return '%d: %s' % (self.pk, self.name)
