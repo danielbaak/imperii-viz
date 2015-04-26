@@ -37,8 +37,14 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD:imperii-viz/settings.py
     'regeste',
     'django_extensions',
+=======
+    'regesta_imperii',
+    'Person',
+    'Location'
+>>>>>>> 20c4a4c5df7be98b7a5834ff626dd3e6d7716888:untitled/settings.py
 )
 
 MIDDLEWARE_CLASSES = (
