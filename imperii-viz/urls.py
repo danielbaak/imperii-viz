@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^person/$',PersonView.as_view()),
     url(r'^person/(?P<pk>[0-9]+)/$',PersonDetail.as_view()),
-    url(r'^person/(?P<pk>[0-9]+)/regesten/$',regentenList),
+    url(r'^person/(?P<person_id>[0-9]+)/regesten/$',regentenList),
     url(r'^regest/(?P<pk>[0-9]+)/$',RegestDetail.as_view()),
 ]
 
