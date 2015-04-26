@@ -27,12 +27,12 @@ class Issue(models.Model):
 class Regeste(models.Model):
     title = models.CharField(max_length=150)
     issue = models.ForeignKey(Issue)
-    place_of_issue = models.ForeignKey(Location)
+    place_of_issue = models.ForeignKey(Location, null=True)
     issuer = models.ForeignKey(Person, related_name='regesten')
-    issue_date = models.DateField()
+    issue_date = models.DateField(null=True)
     abstract = models.TextField()
-    analysis = models.TextField() #Kommentare
-    addenda = models.TextField() #Nachtragungen
+    analysis = models.TextField(null=True) #Kommentare
+    addenda = models.TextField(null=True) #Nachtragungen
     uni_mainz = models.ForeignKey('RegesteUniMainz')
 
 
