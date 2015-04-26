@@ -22,7 +22,7 @@ class Person(models.Model):
             #for regest in self.regesten:
             #    print(regest.issue_date)
 
-
     def calculateMedian(self):
         count = self.regesten.count()
         return self.regesten.values_list().order_by('issue_date')[int(round(count/2))]
+

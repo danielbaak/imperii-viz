@@ -32,7 +32,7 @@ def parse_xml(xml_file_path):
             else:
                 loc = Location.objects.filter(latitude=lat, longitude=long[1:])[0]
         issuer = root.find(".//persName").text
-        issue_date = root.find(".//date").get("value")
+        issue_date = root.find(".//issueDate")[0]
         abstract = root.find(".//abstract")
         analysis = root.find(".//diplomaticAnalysis")
         if abstract is not None:
@@ -71,14 +71,13 @@ def parse_xml(xml_file_path):
         mainz = RegesteUniMainz(uri=uri, exchange=exchange)
         mainz.save()
         date = None
-        if issue_date:
-            date = date_to_posix_timestamp(issue_date)
-
+        if issue_date is not None and issue_date.get("value"):
+            date = date_to_posix_timestamp(issue_date.get("value"))
         Regeste(title=title,
                 issue=iss,
                 place_of_issue=loc,
                 issuer=person,
-                issue_date=None,
+                issue_date=date,
                 abstract=abstract,
                 analysis=analysis,
                 addenda=addenda,
@@ -101,6 +100,9 @@ def get_xml_child_content(node):
     return out
 
 def date_to_posix_timestamp(string):
-    return int(time.mktime(datetime.datetime.strptime(string, "%Y-%m-%d").timetuple()))
-
-
+    try:
+        string = string.replace("-00", "-01")
+        return int(time.mktime(datetime.datetime.strptime(string, "%Y-%m-%d").timetuple()))
+    except ValueError:
+        print(string)
+        return None
