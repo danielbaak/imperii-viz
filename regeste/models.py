@@ -23,14 +23,20 @@ class Department(models.Model):
 
 
 class Volume(models.Model):
-    volume_id = models.IntegerField(unique=True)
+    volume_id = models.IntegerField()
     editor = models.CharField(max_length=200)
     department = models.ForeignKey(Department)
 
+    class Meta:
+        unique_together = ("volume_id", "department")
+
 
 class Issue(models.Model):
-    issue_id = models.IntegerField(unique=True)
-    band = models.ForeignKey(Volume)
+    issue_id = models.IntegerField()
+    volume = models.ForeignKey(Volume)
+
+    class Meta:
+        unique_together = ("issue_id", "volume")
 
 
 class Regeste(models.Model):

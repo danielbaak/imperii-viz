@@ -6,8 +6,8 @@ class Person(models.Model):
     name = models.CharField(max_length=200)
     #e.g from wikipedia
     short_description = models.TextField()
-    birth_date = models.DateField()
-    death_date = models.DateField()
-    gnd_number = models.IntegerField()
+    birth_date = models.DateField(null=True)
+    death_date = models.DateField(null=True)
+    gnd_number = models.IntegerField(null=True)
     #Foreign key in regeste
     #regesten = models.OneToManyField('Regeste')
