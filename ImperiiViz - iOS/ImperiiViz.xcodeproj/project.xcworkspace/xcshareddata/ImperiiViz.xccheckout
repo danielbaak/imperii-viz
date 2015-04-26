@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F7D581AE-5298-48DE-88E2-53FDACF02447</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ImperiiViz</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D503CF9B54DF5EB9BAB4373182BCBCFB33011EAC</key>
+		<string>https://github.com/danielbaak/imperii-viz.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ImperiiViz - iOS/ImperiiViz.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D503CF9B54DF5EB9BAB4373182BCBCFB33011EAC</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/danielbaak/imperii-viz.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D503CF9B54DF5EB9BAB4373182BCBCFB33011EAC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D503CF9B54DF5EB9BAB4373182BCBCFB33011EAC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>imperii-viz</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,7 +1,9 @@
+beautifulsoup4==4.3.2
 Django==1.8
 django-extensions==1.5.2
 djangorestframework==3.1.1
 ipython==3.1.0
 psycopg2==2.6
+requests==2.6.2
 six==1.9.0
 wikipedia==1.4.0
