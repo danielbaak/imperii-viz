@@ -7,7 +7,7 @@ from regeste.views import RegestDetail
 
 
 urlpatterns = [
-    url(r'^search/', SearchView.SearchView.as_view()),
+    url(r'^search/', SearchView.as_view()),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^person/$',PersonView.as_view()),
     url(r'^person/(?P<pk>[0-9]+)/$',PersonDetail.as_view()),
