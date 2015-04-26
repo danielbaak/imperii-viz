@@ -1,6 +1,8 @@
 from django.db import models
 from regeste.models import Regeste
 import wikipedia
+from django.db.models.signals import  post_save
+from django.dispatch import receiver
 # Create your models here.
 
 class Person(models.Model):
@@ -14,6 +16,7 @@ class Person(models.Model):
     def __str__(self):
         return '%d: %s' % (self.pk, self.name)
 
+    @receiver(post_save, sender=Person)
     def addWikiDataToPerson(self):
         #print(wikipedia.search(self.name))
         #[u'Ford Motor Company', u'Gerald Ford', u'Henry Ford']
