@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'regeste',
     'django_extensions',
+    'rest_framework',
     'person',
     'location',
 )

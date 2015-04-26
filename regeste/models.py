@@ -1,21 +1,6 @@
 from django.db import models
 from person.models import Person
 from location.models import Location
-# Create your models here.
-# Personen
-# -Name
-# -short_description
-# -birth_date
-# -death_date
-# Regeste
-# -Person
-# -Inhalt
-# -Datum
-# -Ort
-# Orte
-# Portrais
-#
-
 
 class Department(models.Model):
     name = models.CharField(max_length=200)
@@ -37,8 +22,8 @@ class Regeste(models.Model):
     title = models.CharField(max_length=150)
     issue = models.ForeignKey(Issue)
     place_of_issue = models.ForeignKey(Location)
-    issuer = models.ForeignKey(Person)
-    issue_date = models
+    issuer = models.ForeignKey(Person, related_name='regesten')
+    issue_date = models.DateField()
     abstract = models.TextField()
     analysis = models.TextField() #Kommentare
     addenda = models.TextField() #Nachtragungen
