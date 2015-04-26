@@ -12,7 +12,7 @@ def parse_folder(path):
         for file in files:
             parse_xml(os.path.join(root, file))
 
-
+#ElementTree
 def parse_xml(xml_file_path):
     try:
         loc = None
@@ -103,3 +103,5 @@ def get_xml_child_content(node):
 
 def date_to_posix_timestamp(string):
     return int(time.mktime(datetime.datetime.strptime(string, "%Y-%m-%d").timetuple()))
+
+
