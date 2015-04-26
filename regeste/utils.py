@@ -73,19 +73,20 @@ def parse_xml(xml_file_path):
         date = None
         if issue_date is not None and issue_date.get("value"):
             date = date_to_posix_timestamp(issue_date.get("value"))
-        Regeste(title=title,
-                issue=iss,
-                place_of_issue=loc,
-                issuer=person,
-                issue_date=date,
-                abstract=abstract,
-                analysis=analysis,
-                addenda=addenda,
-                uni_mainz=mainz).save()
+        Regeste.objects.get_or_create(title=title,
+                                      issue=iss,
+                                      place_of_issue=loc,
+                                      issuer=person,
+                                      issue_date=date,
+                                      abstract=abstract,
+                                      analysis=analysis,
+                                      addenda=addenda,
+                                      uni_mainz=mainz)
     except ET.ParseError:
         pass
     except AttributeError:
         pass
+
 
 def get_xml_child_content(node):
     if len(list(node)) == 0:
@@ -98,6 +99,7 @@ def get_xml_child_content(node):
         for child in list(node):
             out += get_xml_child_content(child)
     return out
+
 
 def date_to_posix_timestamp(string):
     try:
