@@ -100,6 +100,5 @@ def get_xml_child_content(node):
             out += get_xml_child_content(child)
     return out
 
-
 def date_to_posix_timestamp(string):
     return int(time.mktime(datetime.datetime.strptime(string, "%Y-%m-%d").timetuple()))
