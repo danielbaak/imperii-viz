@@ -15,7 +15,7 @@ class DateIndicator: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         dateLabel = UILabel(frame: CGRectMake(0, 0, self.frame.width, self.frame.height))
-        dateLabel?.text="1572"
+        dateLabel?.font = UIFont(name: "Helveticaneue", size: 25)
         self.addSubview(dateLabel!)
     }
 
