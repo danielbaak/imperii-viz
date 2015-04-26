@@ -55,7 +55,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'untitled.urls'
+ROOT_URLCONF = 'imperii-viz.urls'
 
 TEMPLATES = [
     {
@@ -73,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'untitled.wsgi.application'
+WSGI_APPLICATION = 'imperii-viz.wsgi.application'
 
 
 # Database
