@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('regeste', '0004_auto_20150426_1022'),
+        ('regeste', '0001_initial'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='regeste',
-            name='abstract',
-            field=models.TextField(null=True),
+            name='issue_date',
+            field=models.IntegerField(null=True),
         ),
     ]
