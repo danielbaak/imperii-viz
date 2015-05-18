@@ -15,7 +15,6 @@ class Person(models.Model):
     def __str__(self):
         return '%d: %s' % (self.pk, self.name)
 
-
     def calculateMedian(self):
         count = self.regesten.count()
         return self.regesten.values_list().order_by('issue_date')[int(round(count/2))]
@@ -23,7 +22,6 @@ class Person(models.Model):
     def save(self, *args, **kwargs):
         self.addWikiDataToPerson()
         super(Person, self).save(*args, **kwargs)
-
 
     def addWikiDataToPerson(self):
         #print(wikipedia.search(self.name))
