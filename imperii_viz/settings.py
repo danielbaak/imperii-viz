@@ -56,7 +56,7 @@ MIDDLEWARE_CLASSES = (
         'django.middleware.security.SecurityMiddleware',
         )
 
-ROOT_URLCONF = 'imperii-viz.urls'
+ROOT_URLCONF = 'imperii_viz.urls'
 
 TEMPLATES = [
         {
@@ -74,7 +74,7 @@ TEMPLATES = [
             },
         ]
 
-WSGI_APPLICATION = 'imperii-viz.wsgi.application'
+WSGI_APPLICATION = 'imperii_viz.wsgi.application'
 
 
 # Database
@@ -113,6 +113,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+#celery settings
+
+BROKER_URL = 'redis://localhost:6379/0'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/

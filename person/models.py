@@ -1,7 +1,5 @@
 from django.db import models
-import wikipedia
-from django.db.models.signals import  post_save
-from django.dispatch import receiver
+from .tasks import add_wiki_data_to_person
 # Create your models here.
 
 class Person(models.Model):
@@ -20,18 +18,7 @@ class Person(models.Model):
         return self.regesten.values_list().order_by('issue_date')[int(round(count/2))]
 
     def save(self, *args, **kwargs):
-        self.addWikiDataToPerson()
         super(Person, self).save(*args, **kwargs)
+        add_wiki_data_to_person.delay(self)
 
-    def addWikiDataToPerson(self):
-        #print(wikipedia.search(self.name))
-        #[u'Ford Motor Company', u'Gerald Ford', u'Henry Ford']
-        wikipedia.set_lang("de")
-        print("--------------")
-        print(self.name)
-        print(wikipedia.suggest(self.name))
-        for entry in wikipedia.search(self.name, results=4):
-            print(entry)
-            #for regest in self.regesten:
-            #    print(regest.issue_date)
-        return
+

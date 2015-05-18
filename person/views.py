@@ -8,7 +8,7 @@ from regeste.models import Regeste
 from regeste.serializers import RegesteSerializer
 
 class PersonView(APIView):
-    def get(self, request,format=None):
+    def get(self, request, format=None):
         events = Person.objects.all()
         serializer = PersonSerializer(events, many = True)
         return Response(serializer.data)
@@ -22,10 +22,10 @@ class PersonDetail(APIView):
 
 
 @api_view(['GET'])
-def regentenList(request,person_id,format=None):
+def regentenList(request, person_id, format=None):
     person = get_object_or_404(Person.objects.filter(pk=person_id))
     regesten = Regeste.objects.filter(issuer=person)
-    serializer = RegesteSerializer(regesten, many = True)
+    serializer = RegesteSerializer(regesten, many=True)
     return Response(serializer.data)
 
 
