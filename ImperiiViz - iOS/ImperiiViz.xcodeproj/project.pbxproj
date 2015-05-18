@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		515B68501AECD786004FEBB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515B684F1AECD786004FEBB9 /* AppDelegate.swift */; };
 		515B68521AECD786004FEBB9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515B68511AECD786004FEBB9 /* ViewController.swift */; };
-		515B68551AECD786004FEBB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 515B68531AECD786004FEBB9 /* Main.storyboard */; };
 		515B68571AECD786004FEBB9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 515B68561AECD786004FEBB9 /* Images.xcassets */; };
 		515B685A1AECD786004FEBB9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 515B68581AECD786004FEBB9 /* LaunchScreen.xib */; };
 		515B68661AECD786004FEBB9 /* ImperiiVizTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515B68651AECD786004FEBB9 /* ImperiiVizTests.swift */; };
+		515B68701AED09DB004FEBB9 /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515B686F1AED09DB004FEBB9 /* TimeLineView.swift */; };
+		515B68741AED1ABD004FEBB9 /* DateIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515B68731AED1ABD004FEBB9 /* DateIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,12 +31,13 @@
 		515B684E1AECD786004FEBB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		515B684F1AECD786004FEBB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		515B68511AECD786004FEBB9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		515B68541AECD786004FEBB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		515B68561AECD786004FEBB9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		515B68591AECD786004FEBB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		515B685F1AECD786004FEBB9 /* ImperiiVizTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImperiiVizTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		515B68641AECD786004FEBB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		515B68651AECD786004FEBB9 /* ImperiiVizTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImperiiVizTests.swift; sourceTree = "<group>"; };
+		515B686F1AED09DB004FEBB9 /* TimeLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineView.swift; sourceTree = "<group>"; };
+		515B68731AED1ABD004FEBB9 /* DateIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +81,8 @@
 			children = (
 				515B684F1AECD786004FEBB9 /* AppDelegate.swift */,
 				515B68511AECD786004FEBB9 /* ViewController.swift */,
-				515B68531AECD786004FEBB9 /* Main.storyboard */,
+				515B686F1AED09DB004FEBB9 /* TimeLineView.swift */,
+				515B68731AED1ABD004FEBB9 /* DateIndicator.swift */,
 				515B68561AECD786004FEBB9 /* Images.xcassets */,
 				515B68581AECD786004FEBB9 /* LaunchScreen.xib */,
 				515B684D1AECD786004FEBB9 /* Supporting Files */,
@@ -192,7 +195,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				515B68551AECD786004FEBB9 /* Main.storyboard in Resources */,
 				515B685A1AECD786004FEBB9 /* LaunchScreen.xib in Resources */,
 				515B68571AECD786004FEBB9 /* Images.xcassets in Resources */,
 			);
@@ -212,7 +214,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				515B68741AED1ABD004FEBB9 /* DateIndicator.swift in Sources */,
 				515B68521AECD786004FEBB9 /* ViewController.swift in Sources */,
+				515B68701AED09DB004FEBB9 /* TimeLineView.swift in Sources */,
 				515B68501AECD786004FEBB9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,14 +240,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		515B68531AECD786004FEBB9 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				515B68541AECD786004FEBB9 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		515B68581AECD786004FEBB9 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -411,6 +407,7 @@
 				515B686B1AECD786004FEBB9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		515B686C1AECD786004FEBB9 /* Build configuration list for PBXNativeTarget "ImperiiVizTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +416,7 @@
 				515B686E1AECD786004FEBB9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

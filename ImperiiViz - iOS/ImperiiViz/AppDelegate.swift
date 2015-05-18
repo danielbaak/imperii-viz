@@ -15,6 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        self.window?.makeKeyAndVisible()
+        
+        let rootViewController = ViewController()
+        self.window?.rootViewController=rootViewController
+        
+        UIApplication.sharedApplication().statusBarHidden = true
+        
         // Override point for customization after application launch.
         return true
     }
