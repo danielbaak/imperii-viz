@@ -29,18 +29,18 @@ class ViewController: UIViewController,UITextFieldDelegate,TimeLineViewDelegate 
         
         
         var from = NSDateComponents()
-        from.year = 1101
+        from.year = 600
         
         var to = NSDateComponents()
-        to.year = 2015
+        to.year = 1600
         
         
         
-        var timeLineView = TimeLineView(frame: CGRectMake(0, self.view.frame.height-55, self.view.frame.size.width, 55), from: from, to: to)
+        var timeLineView = TimeLineView(frame: CGRectMake(0, self.view.frame.height-75, self.view.frame.size.width, 75), from: from, to: to)
         timeLineView.delegate=self
         self.view.addSubview(timeLineView)
         
-        dateIndicator = DateIndicator(frame: CGRectMake(100, self.view.frame.height-110, 100, 55))
+        dateIndicator = DateIndicator(frame: CGRectMake(100, timeLineView.frame.origin.y-55 + 15, 100, 55))
         self.view.addSubview(dateIndicator!)
         
         
@@ -55,12 +55,10 @@ class ViewController: UIViewController,UITextFieldDelegate,TimeLineViewDelegate 
     
     func yearChanged(year: Float, position: CGPoint) {
         dateIndicator?.frame=CGRectMake(position.x, dateIndicator!.frame.origin.y, dateIndicator!.frame.width, dateIndicator!.frame.height)
+        dateIndicator?.center=CGPointMake(position.x, dateIndicator!.center.y)
         dateIndicator?.setYear(year)
     }
     
-        
     
-
-
 }
 

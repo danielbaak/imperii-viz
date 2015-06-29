@@ -14,8 +14,14 @@ class DateIndicator: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        dateLabel = UILabel(frame: CGRectMake(0, 0, self.frame.width, self.frame.height))
+        
+        var imageView = UIImageView(frame: CGRectMake(0, 0, self.frame.width, self.frame.height))
+        imageView.image=UIImage(named: "Annotation")
+        self.addSubview(imageView)
+        
+        dateLabel = UILabel(frame: CGRectMake(0, 0, self.frame.width, 0.75 * self.frame.height))
         dateLabel?.font = UIFont(name: "Helveticaneue", size: 25)
+        dateLabel?.textAlignment=NSTextAlignment.Center
         self.addSubview(dateLabel!)
     }
 
@@ -24,7 +30,7 @@ class DateIndicator: UIView {
     }
     
     func setYear(year: Float) {
-        self.dateLabel?.text=String(stringInterpolationSegment: year)
+        self.dateLabel?.text=String(Int(year))
     }
 
     /*
