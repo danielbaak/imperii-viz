@@ -1,0 +1,150 @@
+.container {
+	position: relative;
+	height: 100vh;
+	width: 100%;
+}
+
+#page-descr {
+	position: absolute;
+	z-index: 2;
+	width: 100%;
+	text-align: center;
+	font-size: 3em;
+	background-color: white;
+	opacity: 0.8;
+	color: white;
+	pointer-events: none;
+}
+
+#sf {
+	color: #02C0FF;
+	opacity: 1;
+	font-family: 'Lobster Two', cursive;
+}
+
+.container-landing {
+	position: relative;
+	height: 100vh;
+	width: 100%;
+	background-color: #02C0FF;
+
+}
+
+#logo {
+	position: relative;
+	text-align: center;
+	top: 40%;
+	transform: translateY(-50%);
+	font-family: 'Lobster Two', cursive;
+	font-size: 90px;
+	color: white;
+
+}
+
+#input-box {
+	width: 50%;
+	position: relative;
+	top: 30%;
+	left: 50%;
+	transform: translateX(-50%);
+
+}
+
+#enter-city {
+	width: 100%;
+	text-align: center;
+	border-radius: 5px;
+	border: 0px solid;
+	height: 25px;
+}
+
+#loadingScreen {
+  position:fixed;
+  top:0px;
+  left:0px;
+  background: rgba(0,0,0,0.5);
+  width:100%;
+  height:100%;
+}
+
+#loadingindicator {
+   
+   position: absolute;
+   top: 50%;
+   margin-top: -50px;
+}
+
+
+.glyphicon-search {
+	position: absolute;	
+	top: 22%;
+	right: 5%;
+}
+
+.glyphicon:hover {
+	cursor: pointer;
+}
+
+#safety-info {
+	position: relative;
+	width: 100%;
+	height: calc(100vh - 50px);
+	top: 70px;
+
+}
+
+
+.dropdown-menu {
+	min-width: 10px;
+}
+
+.dropdown {
+	position: relative;
+	left: 80%;
+}
+
+.modal-content {
+	width: 85%;
+	position: relative;
+	top: 30%;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.modal-body * {
+	position: relative;
+	left: %;
+}
+
+#modal-button {
+	width: 200px;
+}
+
+.modal-dialog {
+	height: 100%;
+}
+
+.centered {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+#date-container {
+	position: relative;
+	width: 340px;
+	display: inline-block;
+	left: 30%;
+	margin: auto 0;
+	top: 180px;
+}
+
+#datepicker, #datepicker2 {
+	width: 110px;
+	border-radius: 5px;
+	border: 0px solid;
+}
+
+

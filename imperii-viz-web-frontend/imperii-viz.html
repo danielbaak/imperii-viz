@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"> </meta>
+            <style type="text/css">
+                html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+                </style>
+                
+                <title>Imperii-Viz</title>
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+                <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+                <link href='http://fonts.googleapis.com/css?family=Lobster+Two:400,400italic,700italic' rel='stylesheet' type='text/css'>
+                
+                <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" type="text/css">
+                <link rel="stylesheet" type="text/css" href="assets/style.css">
+                
+                <script type="text/javascript"
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAi1TNweOF5G6B8S7ssmXzQxOI2oUQ50tQ">
+                </script>
+                
+                <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAi1TNweOF5G6B8S7ssmXzQxOI2oUQ50tQ"></script>
+                
+                <script type="text/javascript"
+                src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false">
+                </script>
+                <script src="assets/jquery.js"></script>
+                <script type="text/javascript">
+                
+                function initialize() {
+                var mapOptions = {
+                center: { lat: 37.789546, lng: -122.433523},
+                zoom: 13
+                };
+                
+                $.get( "safestay.passwords", function( data ) {
+                var email = "";
+                $.get("https://api.sendgrid.com/api/mail.send.json?api_user=frederik&api_key="+data+"&to="+email+"&subject=Your Booking Information for San Francsico&html=<h1>Your Reservation for Folsom Inn in San Francisco</h1>Hello Frederik,<br><br>your reservation in Folsom Inn in San Fracnsico has been confirmed.<br><br>See the booking details of your reservation here: <a href=\"\">reservation details</a><br><br>Stay safe with SafeStay.<br>Have a nice time in San Francisco!<br><br>The SafeStay Team<br><br><img src=\"https://raw.githubusercontent.com/quappi/SafeStay/master/images/SafeStayLogo.png\">&from=booking@safestay.com");
+                });
+                
+                var heatMapData = [];
+                
+                var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                
+                
+                
+                $.get( "https://nameless-shelf-8882.herokuapp.com/crime/get", function( data ) {
+                
+                var length = data.length;
+                
+                    for(i = 0; i < length; i++) {
+                    
+                    heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 1};
+                    
+                        /*if(data[i].type==="SIMPLE ASSULT") {
+                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 1};
+                        } else if (data[i].type==="BUGLAR") {
+                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 2};
+                        } else if(data[i].type==="ALCOHOL") {
+                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 1};
+                        } else if(data[i].type==="VANDALISM") {
+                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 3};
+                        } else if(data[i].type==="THEFT") {
+                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 3};
+                        } else if(data[i].type==="ROBBERY") {
+                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 4};
+                        } else if(data[i].type==="NARCOTICS") {
+                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 2};
+                        } else if(data[i].type==="VEHICLE THEFT") {
+                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 3};
+                        } else if(data[i].type==="MURDER") {
+                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 10};
+                        } else if (data[i].type==="SEXUAL ASSULT") {
+                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 7};
+                        } else {
+                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 1};
+                        }*/
+                        
+                        
+                    }
+                    
+                    
+                
+                    var heatmap = new google.maps.visualization.HeatmapLayer({ data: heatMapData }); 
+                    heatmap.setOptions({radius:40});
+                    
+                    
+                    
+                    heatmap.setMap(map);
+                    
+   
+                    
+                    var link = document.getElementById('loadingScreen');
+					link.style.display = 'none';
+                    
+
+                });
+                
+                
+                
+                
+                $.get( "https://nameless-shelf-8882.herokuapp.com/hotel/get", function( data ) {
+                
+                
+                	setMarkers(map, data);
+                });
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                }
+                
+                
+                
+                function setMarkers(map, locations) {
+                
+                var image = {
+                url: 'images/hotel.png',
+                // This marker is 20 pixels wide by 32 pixels tall.
+                size: new google.maps.Size(16, 16),
+                // The origin for this image is 0,0.
+                origin: new google.maps.Point(0,0),
+                // The anchor for this image is the base of the flagpole at 0,32.
+                anchor: new google.maps.Point(8, 8)
+                };
+                
+                
+                var hotelMarkers = [];
+                
+                
+                for (var i = 0; i < locations.length; i++) {
+                var hotel = locations[i];
+                var myLatLng = new google.maps.LatLng(hotel.latitude, hotel.longitude);
+                
+                
+                
+                var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                id: hotel.id,
+                icon: image,
+                title: hotel.name,
+                price: hotel.min_daily_rate,
+                phonenumber: hotel.phone_number,
+                url: hotel.url
+                });
+                
+                
+                
+                google.maps.event.addListener(marker, 'click', function() {
+                infowindow.setContent('<div style="text-align: center; width: 300px"><h1>'+this.title+'</h1>'+
+                'San Francisco, CA 94133, US<br>' +
+                '✆ ' + this.phonenumber +'<br>' +
+                '<br>Price: <b>'+ this.price + '$</b> per night' +
+                
+                '<br><a href="'+this.url+'" target="_blank">Make Reservation</a><br>'+
+
+                '<a href="http://www.expedia.com/Flights" target="_blank">Book Flight</a><br>'+
+                '<br><button type="button" id="modal-button" class="btn btn-info" data-toggle="modal" data-target="#modal-box">Safety Statistics</button><br></div>')
+                infowindow.open(map,this);
+                });
+                
+                
+                
+                
+                }
+                }
+
+                // google.maps.event.addListener(marker, 'click', function() {
+                // infowindow.setContent('<h1>'+this.title+'</h1>'+
+                // 'San Francisco, CA 94133, Vereinigte Staaten<br>' +
+                // 'Website: <a href="">www.hotel.us</a><br>' +
+                // '✆ (409) 123 456 789<br><br>' +
+                // '<br>Price: <b>'+ this.price + '</b>' +
+                
+                // '<br><a href="">Make Reservation</a><br>'+
+                // '<a href="">Book Flight</a><br>'+
+                // '<br><a href="">Detailed Safety Statistics</a><br>')
+                // infowindow.open(map,this);
+                // });
+                // }
+                // }
+                
+                var contentString = 'HI';
+                
+                var infowindow = new google.maps.InfoWindow({
+                
+                });
+                
+                
+                
+                
+                
+                google.maps.event.addDomListener(window, 'load', initialize);
+                </script>
+                </head>
+    <body>
+        <div class="container">
+            <div id="page-descr">
+                <div id="sf">Imperii-Viz
+                
+                </div>
+            </div>
+            <div id="map-canvas"></div>
+
+            <!-- Modal -->
+              <div class="modal fade" id="modal-box" role="dialog">
+                <div class="modal-dialog">
+                
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h3 class="modal-title">Area Safety Statistics</h3>
+                    </div>
+                    <div class="modal-body">
+                      <h4>Most recent crime: <bold>Theft</bold></h4> 
+                      <h4>Most common crime: <bold>Simple Assult</bold></h4> 
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+        </div>
+        
+        <div id="loadingScreen">
+        	<center><img src="./images/loading.gif" id='loadingindicator'></center>
+        </div>
+        
+    </body>
+</html>
