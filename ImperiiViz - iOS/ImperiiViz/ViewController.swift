@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import MapKit
 
 class ViewController: UIViewController,UITextFieldDelegate,TimeLineViewDelegate {
 
     var dateIndicator : DateIndicator?
+    var mapView: MKMapView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +36,12 @@ class ViewController: UIViewController,UITextFieldDelegate,TimeLineViewDelegate 
         var to = NSDateComponents()
         to.year = 1600
         
+        mapView = MKMapView(frame: self.view.frame)
+        mapView!.mapType = MKMapType.Satellite
+        mapView!.showsPointsOfInterest = false
+        mapView!.zoomEnabled = true
+        mapView!.scrollEnabled = true
+        self.view.addSubview(mapView!)
         
         
         var timeLineView = TimeLineView(frame: CGRectMake(0, self.view.frame.height-75, self.view.frame.size.width, 75), from: from, to: to)
