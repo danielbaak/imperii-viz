@@ -92,7 +92,7 @@ DATABASES = {
             },
         'search': {
             'BACKEND': 'django_redis.cache.RedisCache',
-            'LOCATION': 'redis://127.0.0.1:6379/1',
+            'LOCATION': 'redis://:{}@127.0.0.1:6379/3'.format(os.environ['redis_pw']),
             'OPTIONS': {
                 'CLIENT_CLASS': 'django_redis.client.DefaultClient',
             }
@@ -116,13 +116,14 @@ USE_TZ = True
 
 #celery settings
 
-BROKER_URL = 'redis://localhost:6379/0'
+BROKER_URL = 'redis://:{}@localhost:6379/2'.format(os.environ['redis_pw'])
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
 SHELL_PLUS = "ipython"
+STATIC_ROOT = os.path.join(BASE_DIR,  'static')
 TEMPLATE_DIRS = (
         os.path.join(BASE_DIR,  'templates'),
         )
