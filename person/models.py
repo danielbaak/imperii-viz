@@ -8,6 +8,7 @@ class Person(models.Model):
     short_description = models.TextField(null=True)
     birth_date = models.DateField(null=True)
     death_date = models.DateField(null=True)
+    img_url = models.URLField(null=True)
     gnd_number = models.IntegerField(null=True)
 
     def __str__(self):
