@@ -16,6 +16,8 @@ Wir benutzten ein Python-Backend, das eine REST-API zur Verfügung stellt, die d
 
 [Informationen zur Datenquelle](http://codingdavinci.de/downloads/datenpraesentation-2015/regestra-imperii.pdf)
 
+![Alt text](./Screenshot-1.png?raw=true "Optional Title")
+
 
 ## Contributers
 ===============

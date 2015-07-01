@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"> </meta>
             <style type="text/css">
                 html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
-                </style>
+            </style>
                 
                 <title>Imperii-Viz</title>
 
@@ -29,56 +29,50 @@
                 <script type="text/javascript">
                 
                 function initialize() {
-                var mapOptions = {
-                center: { lat: 37.789546, lng: -122.433523},
-                zoom: 13
-                };
+                	
+                	var mapOptions = {
+                		center: { lat: 49, lng: 10},
+                		zoom: 3};
                 
-                $.get( "safestay.passwords", function( data ) {
-                var email = "";
-                $.get("https://api.sendgrid.com/api/mail.send.json?api_user=frederik&api_key="+data+"&to="+email+"&subject=Your Booking Information for San Francsico&html=<h1>Your Reservation for Folsom Inn in San Francisco</h1>Hello Frederik,<br><br>your reservation in Folsom Inn in San Fracnsico has been confirmed.<br><br>See the booking details of your reservation here: <a href=\"\">reservation details</a><br><br>Stay safe with SafeStay.<br>Have a nice time in San Francisco!<br><br>The SafeStay Team<br><br><img src=\"https://raw.githubusercontent.com/quappi/SafeStay/master/images/SafeStayLogo.png\">&from=booking@safestay.com");
-                });
+
                 
-                var heatMapData = [];
+                	var heatMapData = [];
                 
-                var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                	var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
                 
                 
+                	$.extend({
+  					getUrlVars: function(){
+    					var vars = [], hash;
+    					var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    					for(var i = 0; i < hashes.length; i++)
+    					{	
+      						hash = hashes[i].split('=');
+      						vars.push(hash[0]);
+      						vars[hash[0]] = hash[1];
+    					}
+    					return vars;
+  					},
+  					getUrlVar: function(name){
+    						return $.getUrlVars()[name];
+  					}	
+					});
+					
+					var personID = $.getUrlVar('personid');
+                	console.log(personID);
+                	
+                	if(personID!=null) {
+                		$.get( "http://imperii-viz.de:80/person/"+personID+"/regesten/", function( data ) {
                 
-                $.get( "https://nameless-shelf-8882.herokuapp.com/crime/get", function( data ) {
+                		var length = data.length;
                 
-                var length = data.length;
-                
-                    for(i = 0; i < length; i++) {
+                    	for(i = 0; i < length; i++) {
+                    		if(data[i].place_of_issue!=null) {
+                    			console.log(i +' '+ data[i].place_of_issue.latitude);
+                    			heatMapData[i] = {location: new google.maps.LatLng(data[i].place_of_issue.latitude, data[i].place_of_issue.longitude), weight: 1};
+                    		}
+                   	 	}
                     
-                    heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 1};
-                    
-                        /*if(data[i].type==="SIMPLE ASSULT") {
-                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 1};
-                        } else if (data[i].type==="BUGLAR") {
-                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 2};
-                        } else if(data[i].type==="ALCOHOL") {
-                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 1};
-                        } else if(data[i].type==="VANDALISM") {
-                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 3};
-                        } else if(data[i].type==="THEFT") {
-                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 3};
-                        } else if(data[i].type==="ROBBERY") {
-                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 4};
-                        } else if(data[i].type==="NARCOTICS") {
-                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 2};
-                        } else if(data[i].type==="VEHICLE THEFT") {
-                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 3};
-                        } else if(data[i].type==="MURDER") {
-                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 10};
-                        } else if (data[i].type==="SEXUAL ASSULT") {
-                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 7};
-                        } else {
-                        heatMapData[i] = {location: new google.maps.LatLng(data[i].latitude, data[i].longitude), weight: 1};
-                        }*/
-                        
-                        
-                    }
                     
                     
                 
@@ -95,7 +89,8 @@
 					link.style.display = 'none';
                     
 
-                });
+                	});
+                }
                 
                 
                 
@@ -103,7 +98,7 @@
                 $.get( "https://nameless-shelf-8882.herokuapp.com/hotel/get", function( data ) {
                 
                 
-                	setMarkers(map, data);
+                	//setMarkers(map, data);
                 });
                 
                 
