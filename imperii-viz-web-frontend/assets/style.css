@@ -4,6 +4,111 @@
 	width: 100%;
 }
 
+.projekte {
+	position:relative;
+	padding-top:25px;
+	padding-bottom:25px;
+	text-align: center;
+	max-width:1200px;
+	display: table;
+    margin: 0 auto;
+}
+
+.projekte projekt {
+	position:relative;
+	display:inline-block;
+	margin-top:50px;
+	margin-left:25px;
+	margin-right:25px;
+	vertical-align:top;
+	width:333px;
+	height:538px;
+	
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	border-radius: 10px;
+	
+	border-style: solid;
+    border-width: 1px;
+    border-color: #444444;
+    
+    
+    background:rgba(25, 25, 25, 0.9);
+    
+    
+    -webkit-transition: background 0.3s ease;
+	-moz-transition: background 0.3s ease;
+	-o-transition: background 0.3s ease;
+	transition: background 0.3s ease;
+}
+
+.projekte a {
+	text-decoration:none;
+	color: #ffffff;
+}
+
+.projekte projekt h1 {
+	position:relative;
+	
+	
+	text-align: center;
+
+	font-size:35px;
+	
+	color:rgba(202, 202, 202, 1.0);
+	
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+} 
+
+.projekte projekt img {
+	position:absoulte;
+	top:0;
+	left:0;
+	width:100%;
+
+	
+	opacity: 1.0;
+	
+	-webkit-border-radius: 9px 9px 0px 0px;
+	-moz-border-radius: 9px;
+	border-radius: 9px 9px 0px 0px;
+}
+
+
+.projekte projekt .text {
+	position:relative;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+
+
+	
+	color:rgba(202, 202, 202, 1.0);
+	
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+.projekte projekt:hover {
+	background:#111111;
+}
+
+.projekte projekt:hover > h1 {
+	/*color:#000000;*/
+	text-decoration: underline;
+	color:rgba(255, 255, 255, 1.0);	
+}
+
+.projekte projekt:hover > .text {
+	/*color:#000000;*/
+	color:rgba(255, 255, 255, 1.0);	
+}
+
 #page-descr {
 	position: absolute;
 	z-index: 2;
