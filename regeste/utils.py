@@ -1,10 +1,12 @@
 __author__ = 'fritz'
 import os
 import xml.etree.ElementTree as ET
-import time, datetime
+import time,datetime
 from location.models import Location
 from person.models import Person
 from .models import RegesteUniMainz, Regeste, Department, Issue, Volume
+from .tasks import data_mining_regeste
+from django.db import IntegrityError
 
 
 def parse_folder(path):
@@ -28,7 +30,10 @@ def parse_xml(xml_file_path):
             location = location.text
             lat, long = location.split(",")
             if len(Location.objects.filter(latitude=lat, longitude=long[1:])) == 0:
-                loc = Location(latitude=lat, longitude=long[1:], name=place_of_issue).save()
+                try:
+                    loc = Location(latitude=lat, longitude=long[1:], name=place_of_issue).save()
+                except IntegrityError:
+                    pass
             else:
                 loc = Location.objects.filter(latitude=lat, longitude=long[1:])[0]
         issuer = root.find(".//persName").text
@@ -73,15 +78,17 @@ def parse_xml(xml_file_path):
         date = None
         if issue_date is not None and issue_date.get("value"):
             date = date_to_posix_timestamp(issue_date.get("value"))
-        Regeste.objects.get_or_create(title=title,
-                                      issue=iss,
-                                      place_of_issue=loc,
-                                      issuer=person,
-                                      issue_date=date,
-                                      abstract=abstract,
-                                      analysis=analysis,
-                                      addenda=addenda,
-                                      uni_mainz=mainz)
+        r, created = Regeste.objects.get_or_create(title=title,
+                                          issue=iss,
+                                          place_of_issue=loc,
+                                          issuer=person,
+                                          issue_date=date,
+                                          abstract=abstract,
+                                          analysis=analysis,
+                                          addenda=addenda,
+                                          uni_mainz=mainz)
+        data_mining_regeste.delay(r)
+
     except ET.ParseError:
         pass
     except AttributeError:
