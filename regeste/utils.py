@@ -31,8 +31,8 @@ def parse_xml(xml_file_path):
             lat, long = location.split(",")
             if len(Location.objects.filter(latitude=lat, longitude=long[1:])) == 0:
                 try:
-                    loc = Location(latitude=lat, longitude=long[1:], name=place_of_issue)
-                    loc.save()
+                    loc = Location(latitude=lat, longitude=long[1:], name=place_of_issue).save()
+
                 except IntegrityError:
                     pass
             else:
@@ -74,24 +74,28 @@ def parse_xml(xml_file_path):
         else:
             person = Person.objects.filter(name=issuer)[0]
 
-        mainz = RegesteUniMainz(uri=uri, exchange=exchange)
-        mainz.save()
-        date = None
-        if issue_date is not None and issue_date.get("value"):
-            date = date_to_posix_timestamp(issue_date.get("value"))
-        r, created = Regeste.objects.get_or_create(title=title,
-                                          issue=iss,
-                                          place_of_issue=loc,
-                                          issuer=person,
-                                          issue_date=date,
-                                          abstract=abstract,
-                                          analysis=analysis,
-                                          addenda=addenda,
-                                          uni_mainz=mainz)
-        if loc:
-            r.locations.add(loc)
-            r.save()
-        data_mining_regeste.delay(r)
+
+        try:
+            mainz = RegesteUniMainz(uri=uri, exchange=exchange).save()
+            date = None
+            if issue_date is not None and issue_date.get("value"):
+                date = date_to_posix_timestamp(issue_date.get("value"))
+            r, created = Regeste.objects.get_or_create(title=title,
+                                              issue=iss,
+                                              place_of_issue=loc,
+                                              issuer=person,
+                                              issue_date=date,
+                                              abstract=abstract,
+                                              analysis=analysis,
+                                              addenda=addenda,
+                                              uni_mainz=mainz)
+            if loc:
+                r.locations.add(loc)
+                r.save()
+            data_mining_regeste.delay(r)
+        except IntegrityError:
+            pass
+
 
     except ET.ParseError:
         pass

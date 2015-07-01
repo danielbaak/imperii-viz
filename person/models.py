@@ -4,7 +4,7 @@ from .tasks import add_wiki_data_to_person
 
 
 class Person(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     #e.g from wikipedia
     short_description = models.TextField(null=True)
     birth_date = models.DateField(null=True)
