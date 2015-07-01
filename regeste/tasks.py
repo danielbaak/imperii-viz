@@ -13,5 +13,5 @@ def search_for_loc(regeste):
     for word in words:
         locations = Location.objects.filter(name=word)
         if len(locations) >= 1:
-            regeste.place_of_issue = locations.first()
+            regeste.locations.add(locations.first())
             regeste.save()

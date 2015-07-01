@@ -31,7 +31,8 @@ def parse_xml(xml_file_path):
             lat, long = location.split(",")
             if len(Location.objects.filter(latitude=lat, longitude=long[1:])) == 0:
                 try:
-                    loc = Location(latitude=lat, longitude=long[1:], name=place_of_issue).save()
+                    loc = Location(latitude=lat, longitude=long[1:], name=place_of_issue)
+                    loc.save()
                 except IntegrityError:
                     pass
             else:
@@ -87,6 +88,9 @@ def parse_xml(xml_file_path):
                                           analysis=analysis,
                                           addenda=addenda,
                                           uni_mainz=mainz)
+        if loc:
+            r.locations.add(loc)
+            r.save()
         data_mining_regeste.delay(r)
 
     except ET.ParseError:

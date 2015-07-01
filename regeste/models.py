@@ -1,5 +1,5 @@
 from django.db import models
-from person.models import Person
+
 from location.models import Location
 
 class Department(models.Model):
@@ -27,12 +27,14 @@ class Issue(models.Model):
 class Regeste(models.Model):
     title = models.CharField(max_length=150)
     issue = models.ForeignKey(Issue)
-    place_of_issue = models.ForeignKey(Location, null=True)
-    issuer = models.ForeignKey(Person, related_name='regesten')
+    place_of_issue = models.ForeignKey(Location, null=True, related_name='place_of_issue')
+    issuer = models.ForeignKey('person.Person', related_name='regesten')
     issue_date = models.BigIntegerField(null=True)
     abstract = models.TextField(null=True)
     analysis = models.TextField(null=True) #Kommentare
     addenda = models.TextField(null=True) #Nachtragungen
+    locations = models.ManyToManyField(Location, related_name='locations')
+    people = models.ManyToManyField('person.Person', related_name='people')
     uni_mainz = models.ForeignKey('RegesteUniMainz')
 
 

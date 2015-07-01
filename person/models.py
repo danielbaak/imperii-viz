@@ -2,6 +2,7 @@ from django.db import models
 from .tasks import add_wiki_data_to_person
 # Create your models here.
 
+
 class Person(models.Model):
     name = models.CharField(max_length=200)
     #e.g from wikipedia
@@ -9,6 +10,7 @@ class Person(models.Model):
     birth_date = models.DateField(null=True)
     death_date = models.DateField(null=True)
     img_url = models.URLField(null=True)
+    summary = models.TextField(null=True)
     gnd_number = models.IntegerField(null=True)
 
     def __str__(self):
