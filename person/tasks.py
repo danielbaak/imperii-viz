@@ -12,9 +12,10 @@ def add_wiki_data_to_person(person):
         wikipedia.set_lang("de")
         print("--------------")
         print(person.name)
-        print(wikipedia.suggest(person.name))
+
         for entry in wikipedia.search(person.name, results=4):
             print(entry)
+            print(wikipedia.page(entry))
             #for regest in self.regesten:
             #    print(regest.issue_date)
         return
