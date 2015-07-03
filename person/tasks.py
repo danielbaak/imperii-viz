@@ -14,18 +14,15 @@ def add_wiki_data_to_person(person):
         #print(wikipedia.search(self.name))
         #[u'Ford Motor Company', u'Gerald Ford', u'Henry Ford']
         wikipedia.set_lang("de")
-        print("--------------")
-        print(person.name)
 
         for entry in wikipedia.search(person.name, results=4):
-            print(entry)
             avg_time = int(Regeste.objects.filter(issuer=person).aggregate(Avg("issue_date"))['issue_date__avg'])
             avg_year = datetime.datetime.fromtimestamp(int(avg_time)).year
             try:
                 page_de = wikipedia.page(entry)
                 wikipedia.set_lang("en")
-                page_en = wikipedia.page(entry)
-                wikipedia.set_lang("de")
+                #page_en = wikipedia.page(entry)
+                #wikipedia.set_lang("de")
                 categories = page_de.categories
                 for category in categories:
                     #todo search english and german
@@ -47,7 +44,6 @@ def add_wiki_data_to_person(person):
                         pass
             except wikipedia.exceptions.DisambiguationError:
                 pass
-
         return
 
 
