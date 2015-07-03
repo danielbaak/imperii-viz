@@ -13,6 +13,7 @@ class RegesteSerializer(serializers.ModelSerializer):
 
     #http://www.django-rest-framework.org/api-guide/relations/#nested-relationships
     place_of_issue = LocationSerializer(many=False)
+    locations = LocationSerializer(many=True)
 
     class Meta:
         model = Regeste
