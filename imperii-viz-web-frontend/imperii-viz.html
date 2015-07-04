@@ -28,18 +28,34 @@
                 <script src="assets/jquery.js"></script>
                 <script type="text/javascript">
                 
+                
+                var map;
                 function initialize() {
                 	
                 	var mapOptions = {
                 		center: { lat: 49, lng: 10},
-                		zoom: 3};
+                		zoom: 5,
+                		mapTypeControl: true,
+    				
+    				
+    					zoomControl: true,
+    				
+	    				zoomControlOptions: {
+    	    				style: google.maps.ZoomControlStyle.LARGE,
+        					position: google.maps.ControlPosition.LEFT_CENTER
+    					},
+    				
+    					scaleControl: false,
+    					streetViewControl: false
+                	
+                	};
                 
 
                 
                 	var heatMapData = [];
                 
-                	var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-                
+                	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+	
                 
                 	$.extend({
   					getUrlVars: function(){
@@ -61,16 +77,27 @@
 					var personID = $.getUrlVar('personid');
                 	console.log(personID);
                 	
+                	
                 	if(personID!=null) {
+                	
+                	var infopage = document.getElementById('information');
+                	
                 		$.get( "http://imperii-viz.de:80/person/"+personID+"/regesten/", function( data ) {
                 
                 		var length = data.length;
+                		
+                		setMarkers(map, data);
                 
                     	for(i = 0; i < length; i++) {
                     		if(data[i].place_of_issue!=null) {
-                    			console.log(i +' '+ data[i].place_of_issue.latitude);
                     			heatMapData[i] = {location: new google.maps.LatLng(data[i].place_of_issue.latitude, data[i].place_of_issue.longitude), weight: 1};
                     		}
+                    		
+                    		var newRegest = document.createElement('div');
+                    		newRegest.innerHTML = '<b>'+ data[i].title +'</b><br><i>' + data[i].abstract + '</i><hr>';
+                    		infopage.appendChild(newRegest);
+
+                    		
                    	 	}
                     
                     
@@ -91,34 +118,41 @@
 
                 	});
                 }
-                
-                
-                
-                
-                $.get( "https://nameless-shelf-8882.herokuapp.com/hotel/get", function( data ) {
-                
-                
-                	//setMarkers(map, data);
-                });
-                
-                
-                
-                
-                
-                
-                
-                
+
                 
                 
                 
                 }
                 
                 
+                var regestenMarker = [];
+                var showsMarkers = false;
+                
+                function changeMarkers() {
+                	var newMap = null;
+                	var mybutton = document.getElementById('changebutton');
+                	if(!showsMarkers) {
+                		newMap = map;
+                		
+						mybutton.value="Regesten verstecken";
+               		} else {
+	               		mybutton.value="Regesten anzeigen";
+               		}
+                
+                	for(var i=0; i<regestenMarker.length; i++) {
+                	    var marker = regestenMarker[i];
+                		marker.setMap(newMap);
+                	}
+                	
+                	showsMarkers=!showsMarkers;
+                }
+                
+
                 
                 function setMarkers(map, locations) {
                 
                 var image = {
-                url: 'images/hotel.png',
+                url: 'images/regest.png',
                 // This marker is 20 pixels wide by 32 pixels tall.
                 size: new google.maps.Size(16, 16),
                 // The origin for this image is 0,0.
@@ -128,45 +162,43 @@
                 };
                 
                 
-                var hotelMarkers = [];
+                
                 
                 
                 for (var i = 0; i < locations.length; i++) {
-                var hotel = locations[i];
-                var myLatLng = new google.maps.LatLng(hotel.latitude, hotel.longitude);
+                
+                
+                	var regest = locations[i];
+                	
+                	if(regest.place_of_issue!=null) {
+                	
+                	var myLatLng = new google.maps.LatLng(regest.place_of_issue.latitude, regest.place_of_issue.longitude);
                 
                 
                 
-                var marker = new google.maps.Marker({
-                position: myLatLng,
-                map: map,
-                id: hotel.id,
-                icon: image,
-                title: hotel.name,
-                price: hotel.min_daily_rate,
-                phonenumber: hotel.phone_number,
-                url: hotel.url
-                });
+                	var marker = new google.maps.Marker({
+                		position: myLatLng,
+                		map: null,
+                		text: regest.abstract,
+                		title: regest.title,
+                		price: regest.min_daily_rate});   
+                		
+                	regestenMarker.push(marker);             
                 
                 
-                
-                google.maps.event.addListener(marker, 'click', function() {
-                infowindow.setContent('<div style="text-align: center; width: 300px"><h1>'+this.title+'</h1>'+
-                'San Francisco, CA 94133, US<br>' +
-                '✆ ' + this.phonenumber +'<br>' +
-                '<br>Price: <b>'+ this.price + '$</b> per night' +
-                
-                '<br><a href="'+this.url+'" target="_blank">Make Reservation</a><br>'+
-
-                '<a href="http://www.expedia.com/Flights" target="_blank">Book Flight</a><br>'+
-                '<br><button type="button" id="modal-button" class="btn btn-info" data-toggle="modal" data-target="#modal-box">Safety Statistics</button><br></div>')
-                infowindow.open(map,this);
-                });
-                
-                
+                	google.maps.event.addListener(marker, 'click', function() {
+                	infowindow.setContent('<div style="text-align: center; width: 300px"><h1>'+this.title+'</h1>'+
+                	'<i>'+ this.text +'</i>' +
+                	
+                	'<br><button type="button" id="modal-button" class="btn btn-info" data-toggle="modal" data-target="#modal-box">Safety Statistics</button><br></div>')
+                	
+                	infowindow.open(map,this);
+                	});
                 
                 
                 }
+                
+                	}
                 }
 
                 
@@ -186,37 +218,23 @@
         <div class="container">
             <div id="page-descr">
                 <div id="sf">Imperii-Viz
-                
+                	<div id="panel">
+      					<input onclick="changeMarkers();" type=button value="Regesten anzeigen" id="changebutton">
+    				</div>
                 </div>
             </div>
             <div id="map-canvas"></div>
+            
+            <div id="information">
 
-            <!-- Modal -->
-              <div class="modal fade" id="modal-box" role="dialog">
-                <div class="modal-dialog">
-                
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h3 class="modal-title">Area Safety Statistics</h3>
-                    </div>
-                    <div class="modal-body">
-                      <h4>Most recent crime: <bold>Theft</bold></h4> 
-                      <h4>Most common crime: <bold>Simple Assult</bold></h4> 
+            </div>
 
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                  
-                </div>
-              </div>
+            <div id="loadingScreen">
+        		<center><img src="./images/loading.gif" id='loadingindicator'></center>
+        	</div>
         </div>
         
-        <div id="loadingScreen">
-        	<center><img src="./images/loading.gif" id='loadingindicator'></center>
-        </div>
+        
         
     </body>
 </html>

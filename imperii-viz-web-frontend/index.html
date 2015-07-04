@@ -19,14 +19,19 @@
                 	
                 	var length = data.length;
                 	
-                	for(var i=0; i<length; i++) {
+                	for(var i=length-1; i>=0; i--) {
             
-           				document.write('<a href="imperii-viz.html?personid='+data[i].id+'">');
+           				document.write('<a href="imperii-viz.html?personid='+data[i].id+'" class="projectURL">');
            				document.write('<projekt>');
-           				document.write('<img src="./images/fdz.jpg" />');
+           				if(data[i].img_url) {
+           					document.write('<div class="imgContainer"><img src="'+data[i].img_url+'" /></div>');
+           				}
            				document.write('<h1>'+data[i].name+'</h1>');
-                		document.write('<div class="text">'+data[i].shortDescription+'</div>');
+           				if(data[i].short_description) {
+                			document.write('<div class="text">' + data[i].short_description + ' <div href="http://wikipedia.de"> mehr auf Wikipedia</div> </div>' );
+                		}
                 		document.write('</projekt></a>');
+                		
                 		
                 		
                 		
