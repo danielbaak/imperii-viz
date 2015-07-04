@@ -29,13 +29,10 @@ def parse_xml(xml_file_path):
         if location is not None:
             location = location.text
             lat, long = location.split(",")
-            if len(Location.objects.filter(latitude=lat, longitude=long[1:])) == 0:
-                try:
-                    loc = Location(latitude=lat, longitude=long[1:], name=place_of_issue).save()
-                except IntegrityError:
-                    pass
-            else:
-                loc = Location.objects.filter(latitude=lat, longitude=long[1:])[0]
+            try:
+                loc, created = Location.objects.get_or_create(latitude=float(lat), longitude=float(long[1:]), name=str(place_of_issue))
+            except IntegrityError:
+                loc = Location.objects.filter(latitude=lat, longitude=long[1:], name=place_of_issue).first()
         issuer = root.find(".//persName").text
         issue_date = root.find(".//issueDate")[0]
         abstract = root.find(".//abstract")
@@ -52,42 +49,35 @@ def parse_xml(xml_file_path):
         uri = root.find(".//idno[@n='uri']").text
         exchange = root.find(".//idno[@n='exchange']").text
 
-        if len(Department.objects.filter(department_id=department)) == 0:
-            dep = Department(department_id=department)
-            dep.save()
-        else:
-            dep = Department.objects.get(department_id=department)
-        if len(Volume.objects.filter(volume_id=volume, department=dep)) == 0:
-            vol = Volume(volume_id=volume, department=dep)
-            vol.save()
-        else:
-            vol = Volume.objects.filter(volume_id=volume, department=dep)[0]
-        if len(Issue.objects.filter(issue_id=issue, volume=vol)) == 0:
-            iss = Issue(issue_id=issue, volume=vol)
-            iss.save()
-        else:
-            iss = Issue.objects.filter(issue_id=issue, volume=vol)[0]
-        if len(Person.objects.filter(name=issuer)) == 0:
-            person = Person(name=issuer)
-            person.save()
-        else:
-            person = Person.objects.filter(name=issuer)[0]
+        dep, created = Department.objects.get_or_create(department_id=int(department))
+        vol, created = Volume.objects.get_or_create(volume_id=int(volume), department=dep)
+        try:
+            iss, created = Issue.objects.get_or_create(issue_id=int(issue), volume=vol)
+        except IntegrityError:
+            iss = Issue.objects.filter(issue_id=int(issue), volume=vol).first()
+        try:
+            person, created = Person.objects.get_or_create(name=str(issuer))
+        except IntegrityError:
+            person = Person.objects.filter(name=str(issuer)).first()
+        try:
+            mainz, created = RegesteUniMainz.objects.get_or_create(uri=uri, exchange=exchange)
+            date = None
+            if issue_date is not None and issue_date.get("value"):
+                date = date_to_posix_timestamp(issue_date.get("value"))
+            r, created = Regeste.objects.get_or_create(title=title,
+                                              issue=iss,
+                                              place_of_issue=loc,
+                                              issuer=person,
+                                              issue_date=date,
+                                              abstract=abstract,
+                                              analysis=analysis,
+                                              addenda=addenda,
+                                              uni_mainz=mainz)
 
-        mainz = RegesteUniMainz(uri=uri, exchange=exchange)
-        mainz.save()
-        date = None
-        if issue_date is not None and issue_date.get("value"):
-            date = date_to_posix_timestamp(issue_date.get("value"))
-        r, created = Regeste.objects.get_or_create(title=title,
-                                          issue=iss,
-                                          place_of_issue=loc,
-                                          issuer=person,
-                                          issue_date=date,
-                                          abstract=abstract,
-                                          analysis=analysis,
-                                          addenda=addenda,
-                                          uni_mainz=mainz)
-        data_mining_regeste.delay(r)
+            data_mining_regeste.delay(r)
+        except IntegrityError:
+            pass
+
 
     except ET.ParseError:
         pass
