@@ -25,7 +25,7 @@ SECRET_KEY = '5*tzd&0p#pzg&%i#2v5=a(6mpr^acvn&)tik0ippz15)_+_+#3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.imperii-viz.de']
 
 
 # Application definition
