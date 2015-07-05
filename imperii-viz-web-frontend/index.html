@@ -28,7 +28,21 @@
            				}
            				document.write('<h1>'+data[i].name+'</h1>');
            				if(data[i].short_description) {
-                			document.write('<div class="text">' + data[i].short_description + ' <div href="http://wikipedia.de"> mehr auf Wikipedia</div> </div>' );
+           					
+           					var dateString = "";
+           					
+           					if(data[i].birth_date) {
+           						dateString += '*' + makeNiceDateString(data[i].birth_date) + ' ';
+           					}
+           					
+           					if(data[i].death_date) {
+	           					dateString += '– †' + makeNiceDateString(data[i].death_date) + '<br><br>';
+           					}
+           					
+           				
+                			document.write('<div class="text">' 
+                			+ '<i>' + dateString + '</i>'
+                			+ data[i].short_description + ' <div href="http://wikipedia.de"> mehr auf Wikipedia</div> </div>' );
                 		}
                 		document.write('</projekt></a>');
                 		
@@ -41,7 +55,26 @@
                 });
                 
                 
-
+				function makeNiceDateString(dirtyDateString) {
+					var dateArray = dirtyDateString.split("-");
+					
+					var year = dateArray[0];
+					
+					if(year.charAt(0)=='0') {
+						year = year.slice(1);
+					}
+					
+					var month = dateArray[1];
+					var day = dateArray[2];
+					
+					if(day=='01' && month == '01') {
+						return year;
+					}
+					
+					var niceString = day+'.'+month+'.'+year;
+					
+					return niceString;
+				}
                 
 
                 </script>

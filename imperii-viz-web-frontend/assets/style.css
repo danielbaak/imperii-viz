@@ -67,7 +67,8 @@
 .projekte projekt .imgContainer{
   overflow:hidden;
   width:100%;
-  height: 333px;
+  height:auto;
+  max-height: 333px;
 }
 
 .projekte projekt img {
