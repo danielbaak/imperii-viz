@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '5*tzd&0p#pzg&%i#2v5=a(6mpr^acvn&)tik0ippz15)_+_+#3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -92,7 +92,7 @@ DATABASES = {
             },
         'search': {
             'BACKEND': 'django_redis.cache.RedisCache',
-            'LOCATION': 'redis://127.0.0.1:6379/3'.format(),
+            'LOCATION': 'redis://:{}@127.0.0.1:6379/3'.format(os.environ['redis_pw']),
             'OPTIONS': {
                 'CLIENT_CLASS': 'django_redis.client.DefaultClient',
             }
@@ -116,7 +116,7 @@ USE_TZ = True
 
 #celery settings
 
-BROKER_URL = 'redis://localhost:6379/2'
+BROKER_URL = 'redis://:{}@localhost:6379/2'.format(os.environ['redis_pw'])
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
