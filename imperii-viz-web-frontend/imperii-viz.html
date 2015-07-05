@@ -90,7 +90,12 @@
                 
                     	for(i = 0; i < length; i++) {
                     		if(data[i].place_of_issue!=null) {
-                    			heatMapData[i] = {location: new google.maps.LatLng(data[i].place_of_issue.latitude, data[i].place_of_issue.longitude), weight: 1};
+                    			heatMapData.push({location: new google.maps.LatLng(data[i].place_of_issue.latitude, data[i].place_of_issue.longitude), weight: 1});
+                    			
+                    		}
+                    		
+                    		for(var q=0; q<data[i].locations.length; q++) {
+                    			heatMapData.push({location: new google.maps.LatLng(data[i].locations[q].latitude, data[i].locations[q].longitude), weight: 1});
                     		}
                     		
                     		var newRegest = document.createElement('div');
@@ -180,8 +185,7 @@
                 		position: myLatLng,
                 		map: null,
                 		text: regest.abstract,
-                		title: regest.title,
-                		price: regest.min_daily_rate});   
+                		title: regest.title});   
                 		
                 	regestenMarker.push(marker);             
                 
@@ -190,7 +194,7 @@
                 	infowindow.setContent('<div style="text-align: center; width: 300px"><h1>'+this.title+'</h1>'+
                 	'<i>'+ this.text +'</i>' +
                 	
-                	'<br><button type="button" id="modal-button" class="btn btn-info" data-toggle="modal" data-target="#modal-box">Safety Statistics</button><br></div>')
+                	'<br><button type="button" id="modal-button" class="btn btn-info" data-toggle="modal" data-target="#modal-box">mehr auf Wikipedia</button><br></div>')
                 	
                 	infowindow.open(map,this);
                 	});
