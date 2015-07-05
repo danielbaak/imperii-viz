@@ -42,7 +42,6 @@ INSTALLED_APPS = (
         'rest_framework',
         'person',
         'location',
-        'search',
         'rest_framework_swagger',
         )
 
