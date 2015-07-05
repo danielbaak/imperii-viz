@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"> </meta>
+            <style type="text/css">
+                html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+            </style>
+                
+                <title>Imperii-Viz</title>
+
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+                <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+                <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+                <link href='http://fonts.googleapis.com/css?family=Lobster+Two:400,400italic,700italic' rel='stylesheet' type='text/css'>
+                
+                <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet" type="text/css">
+                <link rel="stylesheet" type="text/css" href="assets/style.css">
+                
+                <script type="text/javascript"
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAi1TNweOF5G6B8S7ssmXzQxOI2oUQ50tQ">
+                </script>
+                
+                <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAi1TNweOF5G6B8S7ssmXzQxOI2oUQ50tQ"></script>
+                
+                <script type="text/javascript"
+                src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false">
+                </script>
+                <script src="assets/jquery.js"></script>
+                <script type="text/javascript">
+                
+                
+                var map;
+                function initialize() {
+                	
+                	var mapOptions = {
+                		center: { lat: 49, lng: 10},
+                		zoom: 5,
+                		mapTypeControl: true,
+    				
+    				
+    					zoomControl: true,
+    				
+	    				zoomControlOptions: {
+    	    				style: google.maps.ZoomControlStyle.LARGE,
+        					position: google.maps.ControlPosition.LEFT_CENTER
+    					},
+    				
+    					scaleControl: false,
+    					streetViewControl: false
+                	
+                	};
+                
+
+                
+                	var heatMapData = [];
+                
+                	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+	
+                
+                	$.extend({
+  					getUrlVars: function(){
+    					var vars = [], hash;
+    					var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    					for(var i = 0; i < hashes.length; i++)
+    					{	
+      						hash = hashes[i].split('=');
+      						vars.push(hash[0]);
+      						vars[hash[0]] = hash[1];
+    					}
+    					return vars;
+  					},
+  					getUrlVar: function(name){
+    						return $.getUrlVars()[name];
+  					}	
+					});
+					
+					var personID = $.getUrlVar('personid');
+                	console.log(personID);
+                	
+                	
+                	if(personID!=null) {
+                	
+                	var infopage = document.getElementById('information');
+                	
+                		$.get( "http://imperii-viz.de:80/person/"+personID+"/regesten/", function( data ) {
+                
+                		var length = data.length;
+                		
+                		setMarkers(map, data);
+                
+                    	for(i = 0; i < length; i++) {
+                    		if(data[i].place_of_issue!=null) {
+                    			heatMapData.push({location: new google.maps.LatLng(data[i].place_of_issue.latitude, data[i].place_of_issue.longitude), weight: 1});
+                    			
+                    		}
+                    		
+                    		for(var q=0; q<data[i].locations.length; q++) {
+                    			heatMapData.push({location: new google.maps.LatLng(data[i].locations[q].latitude, data[i].locations[q].longitude), weight: 1});
+                    		}
+                    		
+                    		var newRegest = document.createElement('div');
+                    		newRegest.innerHTML = '<b>'+ data[i].title +'</b><br><i>' + data[i].abstract + '</i><hr>';
+                    		infopage.appendChild(newRegest);
+
+                    		
+                   	 	}
+                    
+                    
+                    
+                
+                    var heatmap = new google.maps.visualization.HeatmapLayer({ data: heatMapData }); 
+                    heatmap.setOptions({radius:40});
+                    
+                    
+                    
+                    heatmap.setMap(map);
+                    
+   
+                    
+                    var link = document.getElementById('loadingScreen');
+					link.style.display = 'none';
+                    
+
+                	});
+                }
+
+                
+                
+                
+                }
+                
+                
+                var regestenMarker = [];
+                var showsMarkers = false;
+                
+                function changeMarkers() {
+                	var newMap = null;
+                	var mybutton = document.getElementById('changebutton');
+                	if(!showsMarkers) {
+                		newMap = map;
+                		
+						mybutton.value="Regesten verstecken";
+               		} else {
+	               		mybutton.value="Regesten anzeigen";
+               		}
+                
+                	for(var i=0; i<regestenMarker.length; i++) {
+                	    var marker = regestenMarker[i];
+                		marker.setMap(newMap);
+                	}
+                	
+                	showsMarkers=!showsMarkers;
+                }
+                
+
+                
+                function setMarkers(map, locations) {
+                
+                
+                //we dont need this anymore because we use the standard Google Maps Marker
+				/*var image = {
+                url: 'images/regest.png',
+                // This marker is 20 pixels wide by 32 pixels tall.
+                size: new google.maps.Size(16, 16),
+                // The origin for this image is 0,0.
+                origin: new google.maps.Point(0,0),
+                // The anchor for this image is the base of the flagpole at 0,32.
+                anchor: new google.maps.Point(8, 8)
+                };*/
+                
+                
+                
+                
+                
+                for (var i = 0; i < locations.length; i++) {
+                
+                
+                	var regest = locations[i];
+                	
+                	if(regest.place_of_issue!=null) {
+                	
+                		var myLatLng = new google.maps.LatLng(regest.place_of_issue.latitude, regest.place_of_issue.longitude);
+                		addMarker(myLatLng,regest.abstract,regest.title);
+                	
+                		for(var q=0; q<regest.locations.length; q++) {
+                			var myLatLng = new google.maps.LatLng(regest.locations[q].latitude, regest.locations[q].longitude);
+                			addMarker(myLatLng,regest.abstract,regest.title);
+                		}
+                	}
+                }
+                
+                
+                function addMarker(position,text,title) {
+                	var marker = new google.maps.Marker({
+                		position: position,
+                		map: null,
+                		text: text,
+                		title: title});   
+                		
+                	regestenMarker.push(marker);             
+                
+                
+                	google.maps.event.addListener(marker, 'click', function() {
+                		infowindow.setContent('<div style="text-align: center; width: 300px"><h1>'+this.title+'</h1>'+
+                		'<i>'+ this.text +'</i><br>' +
+                	
+                		'<br><button type="button" id="modal-button" class="btn btn-info" data-toggle="modal" data-target="#modal-box">mehr auf Wikipedia</button><br></div>')
+                	
+	                	infowindow.open(map,this);
+                	});
+                }            	
+			}
+
+
+                
+                
+            var infowindow = new google.maps.InfoWindow({
+                
+            });
+                
+                
+                
+                
+                
+                google.maps.event.addDomListener(window, 'load', initialize);
+                </script>
+                </head>
+    <body>
+        <div class="container">
+            <div id="page-descr">
+                <div id="sf">Imperii-Viz
+                	<div id="panel">
+      					<input onclick="changeMarkers();" type=button value="Regesten anzeigen" id="changebutton">
+    				</div>
+                </div>
+            </div>
+            <div id="map-canvas"></div>
+            
+            <div id="information">
+
+            </div>
+
+            <div id="loadingScreen">
+        		<center><img src="./images/loading.gif" id='loadingindicator'></center>
+        	</div>
+        </div>
+        
+        
+        
+    </body>
+</html>

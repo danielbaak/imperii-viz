@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8"> </meta>
+        
+        
+    </head>
+    
+    
+    <script src="assets/jquery.js"></script>
+                <script type="text/javascript">
+                
+                
+                
+                $.get( "http://imperii-viz.de/person/", function( data ) {
+                	
+                	document.write('<link rel="stylesheet" type="text/css" href="assets/style.css">');
+					document.write('<div class="projekte" name="projekte">');
+                	
+                	var length = data.length;
+                	
+                	for(var i=length-1; i>=0; i--) {
+            
+           				document.write('<a href="imperii-viz.html?personid='+data[i].id+'" class="projectURL">');
+           				document.write('<projekt>');
+           				if(data[i].img_url) {
+           					document.write('<div class="imgContainer"><img src="'+data[i].img_url+'" /></div>');
+           				}
+           				document.write('<h1>'+data[i].name+'</h1>');
+           				if(data[i].short_description) {
+                			document.write('<div class="text">' + data[i].short_description + ' <div href="http://wikipedia.de"> mehr auf Wikipedia</div> </div>' );
+                		}
+                		document.write('</projekt></a>');
+                		
+                		
+                		
+                		
+                	}
+                
+                	document.write('</div>');
+                });
+                
+                
+
+                
+
+                </script>
+	
+		
+	
+</html>

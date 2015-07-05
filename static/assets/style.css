@@ -1,0 +1,294 @@
+.container {
+	position: relative;
+	height: 100vh;
+	width: 100%;
+	overflow: hidden;
+}
+
+.projekte {
+	position:relative;
+	padding-top:25px;
+	padding-bottom:25px;
+	text-align: center;
+	max-width:1200px;
+	display: table;
+    margin: 0 auto;
+}
+
+.projekte projekt {
+	position:relative;
+	display:inline-block;
+	margin-top:50px;
+	margin-left:25px;
+	margin-right:25px;
+	vertical-align:top;
+	width:333px;
+	
+	
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	border-radius: 10px;
+	
+	border-style: solid;
+    border-width: 1px;
+    border-color: #444444;
+    
+    
+    background:rgba(25, 25, 25, 0.9);
+    
+    
+    -webkit-transition: background 0.3s ease;
+	-moz-transition: background 0.3s ease;
+	-o-transition: background 0.3s ease;
+	transition: background 0.3s ease;
+}
+
+.projekte a .projectURL {
+	text-decoration:none;
+	color: #ffffff;
+}
+
+.projekte projekt h1 {
+	position:relative;
+	
+	
+	text-align: center;
+
+	font-size:35px;
+	
+	color:rgba(202, 202, 202, 1.0);
+	
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+} 
+
+.projekte projekt .imgContainer{
+  overflow:hidden;
+  width:100%;
+  height: 333px;
+}
+
+.projekte projekt img {
+	position:absoulte;
+	top:0;
+	left:0;
+
+	
+	width:100%;
+
+	
+	opacity: 1.0;
+	
+	-webkit-border-radius: 9px 9px 0px 0px;
+	-moz-border-radius: 9px;
+	border-radius: 9px 9px 0px 0px;
+}
+
+
+.projekte projekt .text {
+	position:relative;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+
+
+	
+	color:rgba(202, 202, 202, 1.0);
+	
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+.projekte projekt:hover {
+	background:#111111;
+}
+
+.projekte projekt:hover > h1 {
+	/*color:#000000;*/
+	text-decoration: underline;
+	color:rgba(255, 255, 255, 1.0);	
+}
+
+.projekte projekt:hover > .text {
+	/*color:#000000;*/
+	color:rgba(255, 255, 255, 1.0);	
+}
+
+#page-descr {
+	position: absolute;
+	z-index: 2;
+	width: 100%;
+	text-align: center;
+	font-size: 3em;
+	background-color: white;
+	opacity: 0.8;
+	color: white;
+	left:0;
+	width:100%;
+	pointer-events: none;
+}
+
+#panel {
+	pointer-events: auto;
+	font-family: Helveticaneue;
+	font-size:20px;
+}
+
+#sf {
+	color: #02C0FF;
+	opacity: 1;
+	font-family: 'Lobster Two', cursive;
+}
+
+.container-landing {
+	position: relative;
+	height: 100vh;
+	width: 100%;
+	background-color: #02C0FF;
+
+}
+
+#logo {
+	position: relative;
+	text-align: center;
+	top: 40%;
+	transform: translateY(-50%);
+	font-family: 'Lobster Two', cursive;
+	font-size: 90px;
+	color: white;
+
+}
+
+#input-box {
+	width: 50%;
+	position: relative;
+	top: 30%;
+	left: 50%;
+	transform: translateX(-50%);
+
+}
+
+#enter-city {
+	width: 100%;
+	text-align: center;
+	border-radius: 5px;
+	border: 0px solid;
+	height: 25px;
+}
+
+#loadingScreen {
+  position:fixed;
+  top:0px;
+  left:0px;
+  background: rgba(0,0,0,0.5);
+  width:100%;
+  height:100%;
+}
+
+#loadingindicator {
+   
+   position: absolute;
+   top: 50%;
+   margin-top: -50px;
+}
+
+
+.glyphicon-search {
+	position: absolute;	
+	top: 22%;
+	right: 5%;
+}
+
+.glyphicon:hover {
+	cursor: pointer;
+}
+
+#safety-info {
+	position: relative;
+	width: 100%;
+	height: calc(100vh - 50px);
+	top: 70px;
+
+}
+
+
+.dropdown-menu {
+	min-width: 10px;
+}
+
+.dropdown {
+	position: relative;
+	left: 80%;
+}
+
+.modal-content {
+	width: 85%;
+	position: relative;
+	top: 30%;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.modal-body * {
+	position: relative;
+	left: %;
+}
+
+#modal-button {
+	width: 200px;
+}
+
+.modal-dialog {
+	height: 100%;
+}
+
+.centered {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+#date-container {
+	position: relative;
+	width: 340px;
+	display: inline-block;
+	left: 30%;
+	margin: auto 0;
+	top: 180px;
+}
+
+#datepicker, #datepicker2 {
+	width: 110px;
+	border-radius: 5px;
+	border: 0px solid;
+}
+
+#map-canvas {
+	position:relative;
+	display:inline-block;
+	
+	top:0;
+	left:0;
+	width:75%;
+}
+
+#information {
+	position:relative;
+	height:100%;
+	width:24%;
+	
+	padding-top:100px;
+
+	display:inline-block;
+
+	overflow-y: auto;	
+	overflow-x:hidden;
+}
+
+
