@@ -9,7 +9,7 @@ from regeste.serializers import RegesteSerializer
 
 class PersonView(APIView):
     def get(self, request, format=None):
-        events = Person.objects.all().order_by('image_url')
+        events = Person.objects.all().order_by('img_url')
         serializer = PersonSerializer(events, many = True)
         return Response(serializer.data)
 
