@@ -13,6 +13,7 @@
 	max-width:1200px;
 	display: table;
     margin: 0 auto;
+    text-decoration: none;
 }
 
 .projekte projekt {
@@ -23,7 +24,7 @@
 	margin-right:25px;
 	vertical-align:top;
 	width:333px;
-	
+	text-decoration: none;
 	
 	-webkit-border-radius: 1px;
 	-moz-border-radius: 1px;
@@ -51,7 +52,7 @@
 .projekte projekt h1 {
 	position:relative;
 	
-	
+	text-decoration: none;
 	text-align: center;
 
 	font-size:35px;
@@ -64,11 +65,15 @@
 	transition: all 0.3s ease;
 } 
 
+a{
+text-decoration: none;
+}
 .projekte projekt .imgContainer{
   overflow:hidden;
   width:100%;
   height:auto;
   max-height: 333px;
+  text-decoration: none;
 }
 
 .projekte projekt img {
@@ -95,7 +100,7 @@
 	margin-bottom: 20px;
 
 
-	
+	text-decoration: none;
 	color:rgba(202, 202, 202, 1.0);
 	
 	-webkit-transition: all 0.3s ease;
