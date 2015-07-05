@@ -9,7 +9,7 @@ class Person(models.Model):
     birth_date = models.DateField(null=True)
     death_date = models.DateField(null=True)
     img_url = models.URLField(null=True)
-    gnd_number = models.IntegerField(null=True)
+    gnd_number = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return '%d: %s' % (self.pk, self.name)
