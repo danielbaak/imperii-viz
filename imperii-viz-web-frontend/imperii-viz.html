@@ -90,7 +90,12 @@
                 
                     	for(i = 0; i < length; i++) {
                     		if(data[i].place_of_issue!=null) {
-                    			heatMapData[i] = {location: new google.maps.LatLng(data[i].place_of_issue.latitude, data[i].place_of_issue.longitude), weight: 1};
+                    			heatMapData.push({location: new google.maps.LatLng(data[i].place_of_issue.latitude, data[i].place_of_issue.longitude), weight: 1});
+                    			
+                    		}
+                    		
+                    		for(var q=0; q<data[i].locations.length; q++) {
+                    			heatMapData.push({location: new google.maps.LatLng(data[i].locations[q].latitude, data[i].locations[q].longitude), weight: 1});
                     		}
                     		
                     		var newRegest = document.createElement('div');
@@ -151,7 +156,9 @@
                 
                 function setMarkers(map, locations) {
                 
-                var image = {
+                
+                //we dont need this anymore because we use the standard Google Maps Marker
+				/*var image = {
                 url: 'images/regest.png',
                 // This marker is 20 pixels wide by 32 pixels tall.
                 size: new google.maps.Size(16, 16),
@@ -159,7 +166,7 @@
                 origin: new google.maps.Point(0,0),
                 // The anchor for this image is the base of the flagpole at 0,32.
                 anchor: new google.maps.Point(8, 8)
-                };
+                };*/
                 
                 
                 
@@ -172,40 +179,44 @@
                 	
                 	if(regest.place_of_issue!=null) {
                 	
-                	var myLatLng = new google.maps.LatLng(regest.place_of_issue.latitude, regest.place_of_issue.longitude);
+                		var myLatLng = new google.maps.LatLng(regest.place_of_issue.latitude, regest.place_of_issue.longitude);
+                		addMarker(myLatLng,regest.abstract,regest.title);
+                	
+                		for(var q=0; q<regest.locations.length; q++) {
+                			var myLatLng = new google.maps.LatLng(regest.locations[q].latitude, regest.locations[q].longitude);
+                			addMarker(myLatLng,regest.abstract,regest.title);
+                		}
+                	}
+                }
                 
                 
-                
+                function addMarker(position,text,title) {
                 	var marker = new google.maps.Marker({
-                		position: myLatLng,
+                		position: position,
                 		map: null,
-                		text: regest.abstract,
-                		title: regest.title,
-                		price: regest.min_daily_rate});   
+                		text: text,
+                		title: title});   
                 		
                 	regestenMarker.push(marker);             
                 
                 
                 	google.maps.event.addListener(marker, 'click', function() {
-                	infowindow.setContent('<div style="text-align: center; width: 300px"><h1>'+this.title+'</h1>'+
-                	'<i>'+ this.text +'</i>' +
+                		infowindow.setContent('<div style="text-align: center; width: 300px"><h1>'+this.title+'</h1>'+
+                		'<i>'+ this.text +'</i><br>' +
                 	
-                	'<br><button type="button" id="modal-button" class="btn btn-info" data-toggle="modal" data-target="#modal-box">Safety Statistics</button><br></div>')
+                		'<br><button type="button" id="modal-button" class="btn btn-info" data-toggle="modal" data-target="#modal-box">mehr auf Wikipedia</button><br></div>')
                 	
-                	infowindow.open(map,this);
+	                	infowindow.open(map,this);
                 	});
-                
-                
-                }
-                
-                	}
-                }
+                }            	
+			}
+
 
                 
                 
-                var infowindow = new google.maps.InfoWindow({
+            var infowindow = new google.maps.InfoWindow({
                 
-                });
+            });
                 
                 
                 
