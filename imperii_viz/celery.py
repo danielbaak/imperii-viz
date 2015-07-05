@@ -9,6 +9,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'imperii_viz.settings')
 
 from django.conf import settings
 
+# celery to do the data mining
 app = Celery('imperii_viz')
 
 # Using a string here means the worker will not have to
