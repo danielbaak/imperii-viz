@@ -14,6 +14,13 @@
 	display: table;
     margin: 0 auto;
     text-decoration: none;
+	display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 
 .projekte projekt {
@@ -23,7 +30,6 @@
 	margin-left:25px;
 	margin-right:25px;
 	vertical-align:top;
-	width:333px;
 	text-decoration: none;
 	
 	-webkit-border-radius: 1px;
@@ -34,10 +40,14 @@
     border-width: 1px;
     border-color: #444444;
     
-    
+    font-family: 'Open Sans', sans-serif;
     background:rgba(25, 25, 25, 0.9);
     
-    
+    width: 28%; /* 4 items per row */
+	float: left;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
     -webkit-transition: background 0.3s ease;
 	-moz-transition: background 0.3s ease;
 	-o-transition: background 0.3s ease;

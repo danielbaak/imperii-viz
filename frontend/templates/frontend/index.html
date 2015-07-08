@@ -16,11 +16,12 @@
 	</script>
     <script src="{% static "frontend/assets/jquery.js" %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static "frontend/assets/style.css" %}">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <body>
     	<div class="projekte" name="projekte">
             {% for person in persons %}
 				<projekt>
-                	<div>
+                	<div style="width:100%">
                         <a href="imperii-viz.html?personid={{ person.id }}" class="projectURL">
                             {% if person.img_url %}
                                 <div class="imgContainer"><img src="{{ person.img_url }}" /></div>
@@ -28,14 +29,17 @@
                         	<h1>{{ person.name }}</h1>
                         	{% if person.short_description %}
                                 <div class="text">
-                					<i>
+                                    <div style="margin-bottom:10px">
                                         {% if person.birth_date %}
-                                            {{ person.birth_date|date:'Y-m-d' }}
+                                            *{{ person.birth_date|date:'Y-m-d' }}
+										{% endif %}
+                                        {% if person.birth_date and person.death_date %}
+                                            -
 										{% endif %}
                                     	{% if person.death_date %}
-											{{ person.death_date|date:'Y-m-d' }}
+											✝{{ person.death_date|date:'Y-m-d' }}
 										{% endif %}
-                                    </i>
+                                    </div>
 									{{ person.short_description }}
                 				</div>
                         	{% endif %}
