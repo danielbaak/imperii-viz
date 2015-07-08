@@ -3,7 +3,7 @@
 
 ## Unser [Coding Da Vinci](http://codingdavinci.de) Projekt
 ===========================================================
-Der Datensatz Regest Imperien besteht aus Regesten (Inhaltsangaben) von Urkunden der Kaiser, Könige und einiger Päpste des Mittelalters (800 bis 1500). Ein Regest fasst den rechtlich relevanten Inhalt sowie die handelnden Personen einer Urkunde zusammen.
+Der Datensatz Regest Imperien besteht aus Regesten (Inhaltsangaben) von Urkunden der Kaiser, Könige und einiger Päpste des Mittelalters (800 bis 1500). Ein Regest fasst den rechtlich relevanten Inhalt sowie die handelnden Personen einer Urkunde zusammen. Die Daten stammen von der Akademie der Wissenschaften und Literatur Mainz.
 
 Die Daten wurden von uns aufbereitet und in Datenbanken gespeichert, sodass wir auf diese über unsere Website besser zugreifen können. 
 
