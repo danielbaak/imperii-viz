@@ -43,6 +43,7 @@ INSTALLED_APPS = (
         'person',
         'location',
         'rest_framework_swagger',
+        'frontend',
         )
 
 MIDDLEWARE_CLASSES = (
