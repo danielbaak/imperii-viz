@@ -6,3 +6,6 @@ from person.models import Person
 def index_view(request):
     persons = Person.objects.all().order_by('img_url')
     return render(request, "frontend/index.html", {'persons': persons})
+
+def contact_view(request):
+    return render(request, "frontend/contact.html")
